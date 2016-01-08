@@ -3,6 +3,8 @@ package cs355.solution;
 import java.awt.MouseInfo;
 
 import cs355.GUIFunctions;
+import cs355.controller.Controller;
+import cs355.view.View;
 
 /**
  * This is the main class. The program starts here.
@@ -19,18 +21,15 @@ public class CS355 {
 	{
 		System.out.println("Starting Program...");
 		
-		
-		
-		
 		// Fill in the parameters below with your controller and view.
-		GUIFunctions.createCS355Frame(null, null);
-
-		GUIFunctions.refresh();
-	
-		GUIFunctions.printf("%d", MouseInfo.getPointerInfo().getLocation().x);
-		System.out.println("X=" +MouseInfo.getPointerInfo().getLocation().x + " Y=" + MouseInfo.getPointerInfo().getLocation().y);
-	
 		
+		Controller the_controller = new Controller();
+		View the_view = new View();
+		
+		
+		GUIFunctions.createCS355Frame(the_controller, the_view);
+
+		GUIFunctions.refresh();	
 		
 	}
 }

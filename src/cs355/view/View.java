@@ -34,13 +34,57 @@ public class View implements ViewRefresher {
 	//TODO Needs to add logic for the rest of the shapes
 	public java.awt.Shape shapeFactory(Shape currentShape)
 	{
-		if(currentShape instanceof Line)
+		System.out.println("Entering shapeFactory");
+		if (currentShape.getShapeType() == Shape.type.LINE)
 		{
+			System.out.println("Line");
 			Line line = (Line)currentShape;
 			Point2D.Double start = new Point2D.Double(line.getStart().x, line.getStart().y);		
 			Point2D.Double end = new Point2D.Double(line.getEnd().x, line.getEnd().y);
 			
 			return new Line2D.Double(start.x, start.y, end.x, end.y);
+		}
+		else if (currentShape.getShapeType() == Shape.type.CIRCLE)
+		{
+			System.out.println("Circle");
+
+		}
+		else if (currentShape.getShapeType() == Shape.type.ELLIPSE)
+		{
+			System.out.println("Ellipse");
+			
+		}
+		else if (currentShape.getShapeType() == Shape.type.RECTANGLE)
+		{
+			System.out.println("Rectangle");
+			
+			//Rectangle rectangle = (Rectangle)currentShape;
+			
+			
+			
+			
+			
+			
+			
+		}
+		else if (currentShape.getShapeType() == Shape.type.SQUARE)
+		{
+			System.out.println("Square");
+			
+			
+			
+			
+			
+			
+			
+		}
+		else if (currentShape.getShapeType() == Shape.type.TRIANGLE)
+		{
+			System.out.println("Triangle");
+			
+			
+			
+			
 		}
 		
 		return null;

@@ -11,7 +11,8 @@ public class Ellipse extends Shape {
 
 	// The center of this shape.
 	private Point2D.Double center;
-
+	private Point2D.Double origin;
+		
 	// The width of this shape.
 	private double width;
 
@@ -31,11 +32,20 @@ public class Ellipse extends Shape {
 		super(color);
 
 		// Set fields.
+		this.origin = center;
 		this.center = center;
 		this.width = width;
 		this.height = height;
 	}
 
+	public Point2D.Double getOrigin() {
+		return origin;
+	}
+	
+	public void setOrigin(Point2D.Double origin) {
+		this.origin = origin;
+	}
+	
 	/**
 	 * Getter for this shape's center.
 	 * @return this shape's center as a Java point.

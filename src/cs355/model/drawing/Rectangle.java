@@ -11,7 +11,9 @@ public class Rectangle extends Shape {
 
 	// The upper left corner of this shape.
 	private Point2D.Double upperLeft;
-
+	private Point2D.Double origin;
+	
+	
 	// The width of this shape.
 	private double width;
 
@@ -32,10 +34,19 @@ public class Rectangle extends Shape {
 
 		// Set fields.
 		this.upperLeft = upperLeft;
+		this.origin = upperLeft;
 		this.width = width;
 		this.height = height;
 	}
 
+	public Point2D.Double getOrigin() {
+		return origin;
+	}
+	
+	public void setOrigin(Point2D.Double origin) {
+		this.origin = origin;
+	}
+	
 	/**
 	 * Getter for this Rectangle's upper left corner.
 	 * @return the upper left corner as a Java point.

@@ -11,7 +11,9 @@ public class Circle extends Shape {
 
 	// The center of this shape.
 	private Point2D.Double center;
-
+	private Point2D.Double origin;
+	
+	
 	// The radius.
 	private double radius;
 
@@ -27,10 +29,19 @@ public class Circle extends Shape {
 		super(color);
 
 		// Set fields.
+		this.origin = center;
 		this.center = center;
 		this.radius = radius;
 	}
 
+	public Point2D.Double getOrigin() {
+		return origin;
+	}
+	
+	public void setOrigin(Point2D.Double origin) {
+		this.origin = origin;
+	}
+	
 	/**
 	 * Getter for this shape's center.
 	 * @return this shape's center as a Java point.

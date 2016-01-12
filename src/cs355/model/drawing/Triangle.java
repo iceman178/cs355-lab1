@@ -13,7 +13,8 @@ public class Triangle extends Shape {
 	private Point2D.Double a;
 	private Point2D.Double b;
 	private Point2D.Double c;
-
+	private int totalVertices;
+	
 	/**
 	 * Basic constructor that sets all fields.
 	 * @param color the color for the new shape.
@@ -30,8 +31,21 @@ public class Triangle extends Shape {
 		this.a = a;
 		this.b = b;
 		this.c = c;
+		this.totalVertices = 1;
 	}
 
+	public int getTotalVertices() {
+		return totalVertices;
+	}
+	
+	public void setTotalVertices(int count) {
+		this.totalVertices = count;
+	}
+	
+	public void addOneVertex() {
+		totalVertices++;
+	}
+	
 	/**
 	 * Getter for the first point.
 	 * @return the first point as a Java point.

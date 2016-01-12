@@ -11,24 +11,48 @@ public class Model extends CS355Drawing {
 	//Use a singleton so that the model can be accessed by the view when repainting
 	private static Model _instance;
 	
-	public int currentMode = -1;
+	private Shape.type currentMode;
 	private Color selectedColor;
 	private ArrayList<Shape> shapes;
 	private ArrayList<Observer> observers;
 
 	//If the model had not been initialized, it will be.
-	public static Model instance() {
+	public static Model instance() 
+	{
 		if (_instance == null) 
+		{
 			_instance = new Model();
+		}
 		return _instance;
 	}
 	
-	public Model() {
+	public Model() 
+	{
 		selectedColor = Color.WHITE;
 		shapes = new ArrayList<Shape>();
 		observers = new ArrayList<Observer>();
+		currentMode = Shape.type.NONE;
 	}
 	
+	public Shape getLastShape() {
+		return shapes.get(shapes.size() - 1);
+	}
+	
+	public void updateShape(int index) {
+		// TODO need to be able to update any shape
+	}
+	
+	public void updateLastShape(Shape newShape) {
+		shapes.remove(shapes.size() - 1);
+		shapes.add(newShape);
+	}
+	
+	//Notifies the observers
+	public void notifyObservers() {
+		super.notifyObservers();
+		System.out.println("Update Issued");
+	}
+
 	@Override
 	public Shape getShape(int index) {
 		return shapes.get(index);
@@ -37,6 +61,7 @@ public class Model extends CS355Drawing {
 	@Override
 	public int addShape(Shape s) {
 		shapes.add(s);
+		System.out.println("Shape size=" + shapes.size());
 		return shapes.size();
 	}
 
@@ -85,4 +110,45 @@ public class Model extends CS355Drawing {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public static Model get_instance() {
+		return _instance;
+	}
+
+	public static void set_instance(Model _instance) {
+		Model._instance = _instance;
+	}
+
+	public Shape.type getCurrentMode() {
+		return currentMode;
+	}
+
+	public void setCurrentMode(Shape.type currentMode) {
+		this.currentMode = currentMode;
+	}
+
+	public Color getSelectedColor() {
+		return selectedColor;
+	}
+
+	public void setSelectedColor(Color selectedColor) {
+		this.selectedColor = selectedColor;
+	}
+
+	public ArrayList<Observer> getObservers() {
+		return observers;
+	}
+
+	public void setObservers(ArrayList<Observer> observers) {
+		this.observers = observers;
+	}
+
+	public void setShapes(ArrayList<Shape> shapes) {
+		this.shapes = shapes;
+	}
+	
+	
+	
+	
+	
 }

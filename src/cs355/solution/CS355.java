@@ -4,6 +4,7 @@ import java.awt.MouseInfo;
 
 import cs355.GUIFunctions;
 import cs355.controller.Controller;
+import cs355.model.drawing.Model;
 import cs355.view.View;
 
 /**
@@ -26,6 +27,8 @@ public class CS355 {
 		Controller the_controller = new Controller();
 		View the_view = new View();
 		
+		
+		Model.instance().addObserver(the_view);
 		
 		GUIFunctions.createCS355Frame(the_controller, the_view);
 

@@ -11,6 +11,9 @@ public class Square extends Shape {
 
 	// The upper left corner of this shape.
 	private Point2D.Double upperLeft;
+	
+	// First click 
+	private Point2D.Double origin;
 
 	// The size of this Square.
 	private double size;
@@ -25,12 +28,22 @@ public class Square extends Shape {
 
 		// Initialize the superclass.
 		super(color);
+		super.setShapeType(Shape.type.SQUARE);
 
 		// Set fields.
+		this.origin = upperLeft;
 		this.upperLeft = upperLeft;
 		this.size = size;
 	}
 
+	public Point2D.Double getOrigin() {
+		return origin;
+	}
+	
+	public void setOrigin(Point2D.Double origin) {
+		this.origin = origin;
+	}
+	
 	/**
 	 * Getter for this Rectangle's upper left corner.
 	 * @return the upper left corner as a Java point.

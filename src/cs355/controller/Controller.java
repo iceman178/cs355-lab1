@@ -14,6 +14,8 @@ public class Controller implements CS355Controller {
 
 	private boolean shapeSelected = false;
 	
+	private int count = 0;
+	
 	@Override
 	public void mouseClicked(MouseEvent arg0) 
 	{
@@ -21,82 +23,66 @@ public class Controller implements CS355Controller {
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) 
+	public void mousePressed(MouseEvent arg0)
 	{
-		//System.out.println("Controller:mouseEntered  X=" + arg0.getX() + " Y=" + arg0.getY());
-	}
+		//System.out.println("Controller:mousePressed  X=" + arg0.getX() + " Y=" + arg0.getY());
 
-	@Override
-	public void mouseExited(MouseEvent arg0) 
-	{
-		//System.out.println("Controller:mouseExited  X=" + arg0.getX() + " Y=" + arg0.getY());
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) 
-	{
-		System.out.println("Controller:mousePressed  X=" + arg0.getX() + " Y=" + arg0.getY());
-
-		if(shapeSelected)
+		switch(Model.instance().getCurrentMode())
 		{
-			if (Model.instance().getLastShape().getShapeType() == Shape.type.TRIANGLE)
-			{
-				
-			}
-			else
-			{
-				shapeSelected = false;
-			}
-			
+		case LINE:
+			Point2D.Double start_line = new Point2D.Double(arg0.getX(), arg0.getY());		
+			Point2D.Double end_line = new Point2D.Double(arg0.getX(), arg0.getY());
+			Line line = new Line(Model.instance().getSelectedColor(), start_line, end_line);
+			line.setShapeType(Shape.type.LINE);
+			Model.instance().addShape(line);
+			shapeSelected = true;
+			break;
+		case CIRCLE:
+			Point2D.Double center_circle = new Point2D.Double(arg0.getX(), arg0.getY());
+			Circle circle = new Circle(Model.instance().getSelectedColor(), center_circle, 0);
+			circle.setShapeType(Shape.type.CIRCLE);
+			Model.instance().addShape(circle);
+			shapeSelected = true;			
+			break;
+		case ELLIPSE:
+			Point2D.Double center_ellipse = new Point2D.Double(arg0.getX(), arg0.getY());
+			Ellipse ellipse = new Ellipse(Model.instance().getSelectedColor(), center_ellipse, 0, 0);
+			ellipse.setShapeType(Shape.type.ELLIPSE);
+			Model.instance().addShape(ellipse);
+			shapeSelected = true;
+			break;
+		case RECTANGLE:
+			Point2D.Double start_rectangle = new Point2D.Double(arg0.getX(), arg0.getY());
+			Rectangle rectangle = new Rectangle(Model.instance().getSelectedColor(), start_rectangle, 0, 0);
+			rectangle.setShapeType(Shape.type.RECTANGLE);
+			Model.instance().addShape(rectangle);
+			shapeSelected = true;
+			break;
+		case SQUARE:
+			Point2D.Double start_square = new Point2D.Double(arg0.getX(), arg0.getY());
+			Square square = new Square(Model.instance().getSelectedColor(), start_square, 0);
+			square.setShapeType(Shape.type.SQUARE);
+			Model.instance().addShape(square);
+			shapeSelected = true;
+			break;
+		case TRIANGLE:	
+			Point2D.Double triangle_a = new Point2D.Double(arg0.getX(), arg0.getY());
+			Triangle triangle = new Triangle(Model.instance().getSelectedColor(), triangle_a, null, null);
+			triangle.setShapeType(Shape.type.TRIANGLE);
+			Model.instance().addShape(triangle);
+			shapeSelected = true;
+			break;
+		default:
+			break;
 		}
-		else
-		{
-			System.out.println("Controller:mousePressed about to make shape");
-			switch(Model.instance().getCurrentMode())
-			{
-			case LINE:
-				System.out.println("Line");
-				Point2D.Double start_line = new Point2D.Double(arg0.getX(), arg0.getY());		
-				Point2D.Double end_line = new Point2D.Double(arg0.getX(), arg0.getY());
-				Model.instance().addShape(new Line(Model.instance().getSelectedColor(), start_line, end_line));
-				shapeSelected = true;
-				break;
-			case CIRCLE:
-				Point2D.Double center_circle = new Point2D.Double(arg0.getX(), arg0.getY());
-				Model.instance().addShape(new Circle(Model.instance().getSelectedColor(), center_circle, 0));
-				shapeSelected = true;			
-				break;
-			case ELLIPSE:
-				Point2D.Double center_ellipse = new Point2D.Double(arg0.getX(), arg0.getY());
-				Model.instance().addShape(new Ellipse(Model.instance().getSelectedColor(), center_ellipse, 0, 0));
-				shapeSelected = true;
-				break;
-			case RECTANGLE:
-				Point2D.Double start_rectangle = new Point2D.Double(arg0.getX(), arg0.getY());
-				Model.instance().addShape(new Square(Model.instance().getSelectedColor(), start_rectangle, 0));
-				shapeSelected = true;
-				break;
-			case SQUARE:
-				Point2D.Double start_square = new Point2D.Double(arg0.getX(), arg0.getY());
-				Model.instance().addShape(new Square(Model.instance().getSelectedColor(), start_square, 0));
-				shapeSelected = true;
-				break;
-			case TRIANGLE:	
-				Point2D.Double triangle_a = new Point2D.Double(arg0.getX(), arg0.getY());
-				Model.instance().addShape(new Triangle(Model.instance().getSelectedColor(), triangle_a, null, null));
-				shapeSelected = true;
-				break;
-			default:
-				break;
-			}
-		}
+		
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) 
 	{
-		System.out.println("Controller:mouseReleased  X=" + arg0.getX() + " Y=" + arg0.getY());
+		//System.out.println("Controller:mouseReleased  X=" + arg0.getX() + " Y=" + arg0.getY());
 		shapeSelected = false;
 	}
 
@@ -104,16 +90,15 @@ public class Controller implements CS355Controller {
 	public void mouseDragged(MouseEvent arg0) 
 	{
 		//System.out.println("Controller:mouseDragged  X=" + arg0.getX() + " Y=" + arg0.getY());
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent arg0) 
-	{
-		//System.out.println("# of shapes=" + Model.instance().getShapes().size());
+		
 		if(shapeSelected) 
 		{
 			Shape currentShape = Model.instance().getLastShape();
-			
+			if (currentShape == null)
+			{
+				System.out.println("currentShape is null");
+				return;
+			}
 			switch(currentShape.getShapeType())
 			{
 			case LINE:
@@ -137,16 +122,26 @@ public class Controller implements CS355Controller {
 			default:
 				break;
 			}
-
-			
 		}
-		if (Model.instance().getShapes().size() > 0)
-		{
-			GUIFunctions.refresh();
-		}
+		GUIFunctions.refresh();
 		
 	}
 
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		//System.out.println("# of shapes=" + Model.instance().getShapes().size());
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		//System.out.println("Controller:mouseEntered  X=" + arg0.getX() + " Y=" + arg0.getY());
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		//System.out.println("Controller:mouseExited  X=" + arg0.getX() + " Y=" + arg0.getY());
+	}
+	
 	private void updateCurrentLine(Shape currentShape, MouseEvent arg0) 
 	{
 		Line line = (Line) currentShape;

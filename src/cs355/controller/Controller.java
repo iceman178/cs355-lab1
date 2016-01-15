@@ -175,29 +175,56 @@ public class Controller implements CS355Controller {
 		Rectangle rectangle = (Rectangle) currentShape;
 		
 		Point2D.Double opposite_corner = new Point2D.Double(arg0.getX(), arg0.getY());
+
+		
+		// Left side of origin point
 		
 		
-		 
+		
+		
+		
+		
+		
+//		if (opposite_corner.getX() < rectangle.getOrigin().getX())
+//		{
+//			// Above origin point
+//			if (opposite_corner.getY() < rectangle.getOrigin().getY())
+//			{
+//				rectangle.setUpperLeft(new Point2D.Double(opposite_corner.getX(), opposite_corner.getY()));
+//			}
+//			else
+//			{
+//				rectangle.setUpperLeft(new Point2D.Double(opposite_corner.getX(), rectangle.getOrigin().getY()));
+//			}
+//		}
+//		else
+//		{
+//			// Above origin point
+//			if (opposite_corner.getY() < rectangle.getOrigin().getY())
+//			{
+//				rectangle.setUpperLeft(new Point2D.Double(rectangle.getOrigin().getX(), opposite_corner.getY()));
+//			}
+//			else
+//			{
+//				// Do nothing
+//			}
+//		}
+		
 		if (opposite_corner.getX() < rectangle.getOrigin().getX())
 		{
-			System.out.println("OCx=" + opposite_corner.getX());
-			System.out.println("ROx=" + rectangle.getOrigin().getX());
-			rectangle.setUpperLeft(new Point2D.Double(opposite_corner.getX(), rectangle.getOrigin().getY()));
-			System.out.println("ULx=" + rectangle.getUpperLeft().getX() + " URy=" + rectangle.getUpperLeft().getY());
+			//System.out.println("OCx=" + opposite_corner.getX());
+			//System.out.println("ROx=" + rectangle.getOrigin().getX());
+			rectangle.setUpperLeft(new Point2D.Double(opposite_corner.getX(), opposite_corner.getY()));
+			//System.out.println("ULx=" + rectangle.getUpperLeft().getX() + " URy=" + rectangle.getUpperLeft().getY());
 		}
-	
-		
-//		if (opposite_corner.getY() < rectangle.getOrigin().getY())
-//		{
-//			rectangle.setUpperLeft(new Point2D.Double(rectangle.getOrigin().getX(), opposite_corner.getY()));
-//		}
+
 		
 		double width = Math.abs(rectangle.getOrigin().getX() - opposite_corner.getX());
 		double height = Math.abs(rectangle.getOrigin().getY() - opposite_corner.getY());
 		
 		rectangle.setWidth(width);
 		rectangle.setHeight(height);
-		
+		System.out.println("Rx=" + rectangle.getOrigin().getX() + "  Ry=" + rectangle.getOrigin().getY());
 		Model.instance().updateLastShape(rectangle);		
 	}
 

@@ -75,7 +75,7 @@ public class View implements ViewRefresher {
 			double y = rectangle.getOrigin().getY();
 			double width = rectangle.getWidth();
 			double height = rectangle.getHeight();
-						
+			System.out.println("SFRx=" + rectangle.getUpperLeft().getX() + "  SFRy=" + rectangle.getUpperLeft().getY());		
 			return new Rectangle2D.Double(x, y, width, height);
 		}
 		else if (currentShape.getShapeType() == Shape.type.SQUARE)

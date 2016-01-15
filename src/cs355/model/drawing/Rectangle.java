@@ -13,7 +13,6 @@ public class Rectangle extends Shape {
 	private Point2D.Double upperLeft;
 	private Point2D.Double origin;
 	
-	
 	// The width of this shape.
 	private double width;
 

@@ -166,74 +166,86 @@ public class Controller implements CS355Controller {
 		
 		
 	}
-	
+		
 	private void updateCurrentRectangle(Shape currentShape, MouseEvent arg0) 
 	{
-		String x_direction = "right";
-		String y_direction = "bottom";
-		
 		Rectangle rectangle = (Rectangle) currentShape;
-		
 		Point2D.Double opposite_corner = new Point2D.Double(arg0.getX(), arg0.getY());
 
-		
 		// Left side of origin point
-		
-		
-		
-		
-		
-		
-		
-//		if (opposite_corner.getX() < rectangle.getOrigin().getX())
-//		{
-//			// Above origin point
-//			if (opposite_corner.getY() < rectangle.getOrigin().getY())
-//			{
-//				rectangle.setUpperLeft(new Point2D.Double(opposite_corner.getX(), opposite_corner.getY()));
-//			}
-//			else
-//			{
-//				rectangle.setUpperLeft(new Point2D.Double(opposite_corner.getX(), rectangle.getOrigin().getY()));
-//			}
-//		}
-//		else
-//		{
-//			// Above origin point
-//			if (opposite_corner.getY() < rectangle.getOrigin().getY())
-//			{
-//				rectangle.setUpperLeft(new Point2D.Double(rectangle.getOrigin().getX(), opposite_corner.getY()));
-//			}
-//			else
-//			{
-//				// Do nothing
-//			}
-//		}
-		
 		if (opposite_corner.getX() < rectangle.getOrigin().getX())
 		{
-			//System.out.println("OCx=" + opposite_corner.getX());
-			//System.out.println("ROx=" + rectangle.getOrigin().getX());
-			rectangle.setUpperLeft(new Point2D.Double(opposite_corner.getX(), opposite_corner.getY()));
-			//System.out.println("ULx=" + rectangle.getUpperLeft().getX() + " URy=" + rectangle.getUpperLeft().getY());
+			// Above origin point
+			if (opposite_corner.getY() < rectangle.getOrigin().getY())
+			{
+				rectangle.setUpperLeft(new Point2D.Double(opposite_corner.getX(), opposite_corner.getY()));
+			}
+			else // Below origin point
+			{
+				rectangle.setUpperLeft(new Point2D.Double(opposite_corner.getX(), rectangle.getOrigin().getY()));
+			}
 		}
-
+		else // Right side of origin point
+		{
+			// Above origin point
+			if (opposite_corner.getY() < rectangle.getOrigin().getY())
+			{
+				rectangle.setUpperLeft(new Point2D.Double(rectangle.getOrigin().getX(), opposite_corner.getY()));
+			}
+			else // Below origin point
+			{
+				rectangle.setUpperLeft(new Point2D.Double(rectangle.getOrigin().getX(), rectangle.getOrigin().getY()));
+			}
+		}
 		
 		double width = Math.abs(rectangle.getOrigin().getX() - opposite_corner.getX());
 		double height = Math.abs(rectangle.getOrigin().getY() - opposite_corner.getY());
 		
 		rectangle.setWidth(width);
 		rectangle.setHeight(height);
-		System.out.println("Rx=" + rectangle.getOrigin().getX() + "  Ry=" + rectangle.getOrigin().getY());
+		
 		Model.instance().updateLastShape(rectangle);		
 	}
 
 	private void updateCurrentSquare(Shape currentShape, MouseEvent arg0) 
 	{
 		Square square = (Square) currentShape;
+		Point2D.Double opposite_corner = new Point2D.Double(arg0.getX(), arg0.getY());
+
+
+		double side_length = Math.min(Math.abs(square.getOrigin().getX() - opposite_corner.getX()), 
+									  Math.abs(square.getOrigin().getY() - opposite_corner.getY()));
+		square.setSize(side_length);
+		
+		// Left side of origin point
+		if (opposite_corner.getX() < square.getOrigin().getX())
+		{
+			// Above origin point
+			if (opposite_corner.getY() < square.getOrigin().getY())
+			{
+				square.setUpperLeft(new Point2D.Double(square.getOrigin().getX() - side_length, 
+													   square.getOrigin().getY() ));
+			}
+			else // Below origin point
+			{
+				square.setUpperLeft(new Point2D.Double(opposite_corner.getX(), square.getOrigin().getY()));
+			}
+		}
+		else // Right side of origin point
+		{
+			// Above origin point
+			if (opposite_corner.getY() < square.getOrigin().getY())
+			{
+				square.setUpperLeft(new Point2D.Double(square.getOrigin().getX(), opposite_corner.getY()));
+			}
+			else // Below origin point
+			{
+				square.setUpperLeft(new Point2D.Double(square.getOrigin().getX(), square.getOrigin().getY()));
+			}
+		}
 		
 		
-		
+		Model.instance().updateLastShape(square);
 	}
 
 	private void updateCurrentTriangle(Shape currentShape, MouseEvent arg0) 

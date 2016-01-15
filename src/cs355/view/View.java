@@ -71,18 +71,18 @@ public class View implements ViewRefresher {
 		{
 			Rectangle rectangle = (Rectangle)currentShape;
 			
-			double x = rectangle.getOrigin().getX();
-			double y = rectangle.getOrigin().getY();
+			double x = rectangle.getUpperLeft().getX();
+			double y = rectangle.getUpperLeft().getY();
 			double width = rectangle.getWidth();
 			double height = rectangle.getHeight();
-			System.out.println("SFRx=" + rectangle.getUpperLeft().getX() + "  SFRy=" + rectangle.getUpperLeft().getY());		
+			
 			return new Rectangle2D.Double(x, y, width, height);
 		}
 		else if (currentShape.getShapeType() == Shape.type.SQUARE)
 		{
 			Square square = (Square)currentShape;
-			double x = square.getOrigin().getX();
-			double y = square.getOrigin().getY();
+			double x = square.getUpperLeft().getX();
+			double y = square.getUpperLeft().getY();
 			double width = square.getSize();
 			double height = square.getSize();
 						

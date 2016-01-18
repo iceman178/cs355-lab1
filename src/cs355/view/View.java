@@ -49,8 +49,8 @@ public class View implements ViewRefresher {
 		{
 			Circle circle = (Circle)currentShape;
 						
-			double x = circle.getOrigin().getX();
-			double y = circle.getOrigin().getY();
+			double x = circle.getCenter().getX();
+			double y = circle.getCenter().getY();
 			double width = circle.getRadius();
 			double height = circle.getRadius();
 						
@@ -60,8 +60,8 @@ public class View implements ViewRefresher {
 		{
 			Ellipse ellipse = (Ellipse)currentShape;
 			
-			double x = ellipse.getOrigin().getX();
-			double y = ellipse.getOrigin().getY();
+			double x = ellipse.getCenter().getX();
+			double y = ellipse.getCenter().getY();
 			double width = ellipse.getWidth();
 			double height = ellipse.getHeight();
 						

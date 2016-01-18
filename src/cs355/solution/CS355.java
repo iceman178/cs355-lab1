@@ -1,5 +1,6 @@
 package cs355.solution;
 
+import java.awt.Color;
 import java.awt.MouseInfo;
 
 import cs355.GUIFunctions;
@@ -20,18 +21,15 @@ public class CS355 {
 	 */
 	public static void main(String[] args) 
 	{
-		System.out.println("Starting Program...");
-		
-		// Fill in the parameters below with your controller and view.
-		
+		//System.out.println("Starting Program...");
 		Controller the_controller = new Controller();
 		View the_view = new View();
 		
-		
 		Model.instance().addObserver(the_view);
+		Model.instance().setSelectedColor(Color.WHITE);
 		
 		GUIFunctions.createCS355Frame(the_controller, the_view);
-
+		GUIFunctions.changeSelectedColor(Color.WHITE);
 		GUIFunctions.refresh();	
 		
 	}

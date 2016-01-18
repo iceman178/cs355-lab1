@@ -44,11 +44,7 @@ public class Model extends CS355Drawing {
 	
 	public void updateLastShape(Shape newShape) {
 		shapes.remove(shapes.size() - 1);
-		
-		//System.out.println("Shapes size=" + shapes.size());
 		shapes.add(newShape);
-		//System.out.println("After update=" + shapes.size());
-		
 	}
 	
 	//Notifies the observers
@@ -65,7 +61,6 @@ public class Model extends CS355Drawing {
 	@Override
 	public int addShape(Shape s) {
 		shapes.add(s);
-		System.out.println("Shape size=" + shapes.size());
 		return shapes.size();
 	}
 

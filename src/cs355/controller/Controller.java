@@ -6,6 +6,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import cs355.GUIFunctions;
@@ -14,15 +15,31 @@ import cs355.model.drawing.*;
 public class Controller implements CS355Controller {
 
 	private boolean shapeSelected = false;
+	private ArrayList<Point2D.Double> trianglePoints = new ArrayList<>();
 	
-	private int count = 0;
 	
 	@Override
 	public void mouseClicked(MouseEvent arg0) 
 	{
-		System.out.println("Controller:mouseClicked  X=" + arg0.getX() + " Y=" + arg0.getY());
+		if (Model.instance().getCurrentMode() == Shape.type.TRIANGLE)
+		{
+			Point2D.Double newPoint = new Point2D.Double(arg0.getX(), arg0.getY());
+			trianglePoints.add(newPoint);
+			
+			if (trianglePoints.size() == 3)
+			{
+				Triangle triangle = new Triangle(Model.instance().getSelectedColor(),
+												 trianglePoints.get(0),
+												 trianglePoints.get(1),
+												 trianglePoints.get(2));
+				triangle.setShapeType(Shape.type.TRIANGLE);
+				Model.instance().addShape(triangle);
+				resetTriangleInfo();
+				GUIFunctions.refresh();
+			}
+		}
 	}
-
+	
 	@Override
 	public void mousePressed(MouseEvent arg0)
 	{
@@ -67,31 +84,21 @@ public class Controller implements CS355Controller {
 			shapeSelected = true;
 			break;
 		case TRIANGLE:	
-			Point2D.Double triangle_a = new Point2D.Double(arg0.getX(), arg0.getY());
-			Triangle triangle = new Triangle(Model.instance().getSelectedColor(), triangle_a, null, null);
-			triangle.setShapeType(Shape.type.TRIANGLE);
-			Model.instance().addShape(triangle);
-			shapeSelected = true;
 			break;
 		default:
 			break;
 		}
-		
-
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) 
 	{
-		//System.out.println("Controller:mouseReleased  X=" + arg0.getX() + " Y=" + arg0.getY());
 		shapeSelected = false;
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent arg0) 
 	{
-		//System.out.println("Controller:mouseDragged  X=" + arg0.getX() + " Y=" + arg0.getY());
-		
 		if(shapeSelected) 
 		{
 			Shape currentShape = Model.instance().getLastShape();
@@ -118,30 +125,20 @@ public class Controller implements CS355Controller {
 				updateCurrentSquare(currentShape, arg0);
 				break;
 			case TRIANGLE:	
-				updateCurrentTriangle(currentShape, arg0);
 				break;
 			default:
 				break;
 			}
 		}
 		GUIFunctions.refresh();
-		
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent arg0) {
-		//System.out.println("# of shapes=" + Model.instance().getShapes().size());
-	}
-
+	public void mouseMoved(MouseEvent arg0) {}
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		//System.out.println("Controller:mouseEntered  X=" + arg0.getX() + " Y=" + arg0.getY());
-	}
-
+	public void mouseEntered(MouseEvent arg0) {}
 	@Override
-	public void mouseExited(MouseEvent arg0) {
-		//System.out.println("Controller:mouseExited  X=" + arg0.getX() + " Y=" + arg0.getY());
-	}
+	public void mouseExited(MouseEvent arg0) {}
 	
 	private void updateCurrentLine(Shape currentShape, MouseEvent arg0) 
 	{
@@ -194,9 +191,9 @@ public class Controller implements CS355Controller {
 	{
 		Ellipse ellipse = (Ellipse) currentShape;
 		Point2D.Double opposite_corner = new Point2D.Double(arg0.getX(), arg0.getY());
-
+		
 		// Left side of origin point
-		if (opposite_corner.getX() < ellipse.getCenter().getX())
+		if (opposite_corner.getX() < ellipse.getOrigin().getX())
 		{
 			// Above origin point
 			if (opposite_corner.getY() < ellipse.getOrigin().getY())
@@ -307,19 +304,20 @@ public class Controller implements CS355Controller {
 		}
 		Model.instance().updateLastShape(square);
 	}
-
-	private void updateCurrentTriangle(Shape currentShape, MouseEvent arg0) 
+	
+	public void resetTriangleInfo()
 	{
-		Triangle triangle = (Triangle) currentShape;
-		
-		
+		trianglePoints.clear();
 	}
 	
 	@Override
 	public void colorButtonHit(Color c) 
 	{
-		System.out.println("Controller:colorButtonHit");
-		System.out.println("Color=" + c.toString());
+		resetTriangleInfo();
+		if (c == null)
+		{
+			return;
+		}
 		Model.instance().setSelectedColor(c);
 		GUIFunctions.changeSelectedColor(c);
 	}
@@ -327,60 +325,63 @@ public class Controller implements CS355Controller {
 	@Override
 	public void lineButtonHit() 
 	{
-		System.out.println("Controller:lineButtonHit");
+		resetTriangleInfo();
 		Model.instance().setCurrentMode(Shape.type.LINE);
 	}
 
 	@Override
 	public void squareButtonHit() 
 	{
-		System.out.println("Controller:squareButtonHit");
+		resetTriangleInfo();
 		Model.instance().setCurrentMode(Shape.type.SQUARE);
 	}
 
 	@Override
 	public void rectangleButtonHit() 
 	{
-		System.out.println("Controller:rectangleButtonHit");
+		resetTriangleInfo();
 		Model.instance().setCurrentMode(Shape.type.RECTANGLE);
 	}
 
 	@Override
 	public void circleButtonHit() 
 	{
-		System.out.println("Controller:circleButtonHit");
+		resetTriangleInfo();
 		Model.instance().setCurrentMode(Shape.type.CIRCLE);
 	}
 
 	@Override
 	public void ellipseButtonHit() 
 	{
-		System.out.println("Controller:ellipseButtonHit");
+		resetTriangleInfo();
 		Model.instance().setCurrentMode(Shape.type.ELLIPSE);
 	}
 
 	@Override
 	public void triangleButtonHit() 
 	{
-		System.out.println("Controller:triangelButtonHit");
+		resetTriangleInfo();
 		Model.instance().setCurrentMode(Shape.type.TRIANGLE);
 	}
 
 	@Override
 	public void selectButtonHit() 
 	{
+		resetTriangleInfo();
 		System.out.println("Controller:selectButtonHit");
 	}
 
 	@Override
 	public void zoomInButtonHit() 
 	{
+		resetTriangleInfo();
 		System.out.println("Controller:zoomInButtonHit");
 	}
 
 	@Override
 	public void zoomOutButtonHit() 
 	{
+		resetTriangleInfo();
 		System.out.println("Controller:zoomOutButtonHit");
 	}
 

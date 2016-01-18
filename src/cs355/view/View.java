@@ -1,6 +1,7 @@
 package cs355.view;
 
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -90,8 +91,26 @@ public class View implements ViewRefresher {
 		}
 		else if (currentShape.getShapeType() == Shape.type.TRIANGLE)
 		{
-			System.out.println("Triangle");
-
+			Triangle triangle = (Triangle)currentShape;
+			
+			int[] x = new int[3];
+			int[] y = new int[3];
+			
+			x[0] = (int)triangle.getA().getX();
+			x[1] = (int)triangle.getB().getX();
+			x[2] = (int)triangle.getC().getX();
+			
+			y[0] = (int)triangle.getA().getY();
+			y[1] = (int)triangle.getB().getY();
+			y[2] = (int)triangle.getC().getY();
+			
+			Polygon tri = new Polygon();
+			
+			tri.addPoint(x[0], y[0]);
+			tri.addPoint(x[1], y[1]);
+			tri.addPoint(x[2], y[2]);
+			
+			return tri;
 		}
 		
 		return null;

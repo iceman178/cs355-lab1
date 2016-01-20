@@ -398,143 +398,81 @@ public class Controller implements CS355Controller {
 	}
 
 	@Override
-	public void openScene(File file) 
-	{
-		
-
-	}
+	public void openScene(File file) {}
 
 	@Override
-	public void toggle3DModelDisplay() 
-	{
-		
-
-	}
+	public void toggle3DModelDisplay() {}
 
 	@Override
-	public void keyPressed(Iterator<Integer> iterator) 
-	{
-		
-
-	}
+	public void keyPressed(Iterator<Integer> iterator) {}
 
 	@Override
-	public void openImage(File file) 
-	{
-		
-
-	}
+	public void openImage(File file) {}
 
 	@Override
-	public void saveImage(File file) 
-	{
-		
-
-	}
+	public void saveImage(File file) {}
 
 	@Override
-	public void toggleBackgroundDisplay() 
-	{
-		
-
-	}
+	public void toggleBackgroundDisplay() {}
 
 	@Override
 	public void saveDrawing(File file) 
 	{
-		
-
+		System.out.println("Saving drawing");
+		Model.instance().save(file);
+		GUIFunctions.refresh();
 	}
 
 	@Override
 	public void openDrawing(File file) 
 	{
-		
-
+		System.out.println("Open drawing");
+		Model.instance().open(file);
+		GUIFunctions.refresh();
+		if (Model.get_instance() == null)
+		{
+			System.out.println("NULL");
+		}
+		System.out.println("Size=" + Model.get_instance().getShapes().size());
 	}
 
 	@Override
-	public void doDeleteShape() 
-	{
-		
-
-	}
+	public void doDeleteShape() {}
 
 	@Override
-	public void doEdgeDetection() 
-	{
-		
-
-	}
+	public void doEdgeDetection() {}
 
 	@Override
-	public void doSharpen() 
-	{
-		
-
-	}
+	public void doSharpen() {}
 
 	@Override
-	public void doMedianBlur() 
-	{
-		
-
-	}
+	public void doMedianBlur() {}
 
 	@Override
-	public void doUniformBlur() 
-	{
-		
-
-	}
+	public void doUniformBlur() {}
 
 	@Override
-	public void doGrayscale() 
-	{
-		
-
-	}
+	public void doGrayscale() {}
 
 	@Override
-	public void doChangeContrast(int contrastAmountNum) 
-	{
-		
-
-	}
-
+	public void doChangeContrast(int contrastAmountNum) {}
+	
 	@Override
-	public void doChangeBrightness(int brightnessAmountNum) 
-	{
-		
-
-	}
-
+	public void doChangeBrightness(int brightnessAmountNum) {}
+	
 	@Override
-	public void doMoveForward() 
-	{
-		
-
-	}
-
+	public void doMoveForward() {}
+	
 	@Override
-	public void doMoveBackward() 
-	{
-		
-
-	}
-
+	public void doMoveBackward() {}
+	
 	@Override
-	public void doSendToFront() 
-	{
-		
-
-	}
-
+	public void doSendToFront() {}
+	
 	@Override
-	public void doSendtoBack() 
-	{
-		
-
-	}
-
+	public void doSendtoBack() {}
+	
+	
+	
+	
 }

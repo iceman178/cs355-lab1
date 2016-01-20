@@ -14,8 +14,7 @@ public class Model extends CS355Drawing {
 	private Shape.type currentMode;
 	private Color selectedColor;
 	private ArrayList<Shape> shapes;
-	private ArrayList<Observer> observers;
-
+	
 	//If the model had not been initialized, it will be.
 	public static Model instance() 
 	{
@@ -30,7 +29,6 @@ public class Model extends CS355Drawing {
 	{
 		selectedColor = Color.WHITE;
 		shapes = new ArrayList<Shape>();
-		observers = new ArrayList<Observer>();
 		currentMode = Shape.type.NONE;
 	}
 	
@@ -100,14 +98,12 @@ public class Model extends CS355Drawing {
 
 	@Override
 	public List<Shape> getShapesReversed() {
-		// TODO Auto-generated method stub
-		return null;
+		return shapes;
 	}
 
 	@Override
 	public void setShapes(List<Shape> shapes) {
-		// TODO Auto-generated method stub
-		
+		this.shapes = (ArrayList<Shape>) shapes;
 	}
 	
 	public static Model get_instance() {
@@ -132,14 +128,6 @@ public class Model extends CS355Drawing {
 
 	public void setSelectedColor(Color selectedColor) {
 		this.selectedColor = selectedColor;
-	}
-
-	public ArrayList<Observer> getObservers() {
-		return observers;
-	}
-
-	public void setObservers(ArrayList<Observer> observers) {
-		this.observers = observers;
 	}
 
 	public void setShapes(ArrayList<Shape> shapes) {
